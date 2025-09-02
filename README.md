@@ -4,7 +4,7 @@
 <summary>⚠️ IMPORTANT: DISCLAIMER - READ BEFORE PROCEEDING </summary>
 By choosing to proceed, you acknowledge and agree to the following:
 
-1. **Educational / Non-Commercial Use Only:** This project and its documentation are provided for educational, non-commercial use only. It is intended to demonstrate engineering principles and for personal experimentation. You agree not to use this information for any commercial purpose.
+1. **Educational / Non-Commercial Use Only:** This project and its documentation are provided for educational, non-commercial use only. It is intended to demonstrate engineering principles and for personal experimentation. You agree not to use this information for any commercial purpose. Please don't sue me!
 
 2. **Intellectual Property:** This project involves reverse-engineering a commercial product. All trademarks and copyrights associated with the Decathlon EB140 are the property of their respective owners. This project is not affiliated with, endorsed by, or sponsored by Decathlon or any of its subsidiaries. The aim is to share knowledge, not to infringe upon any intellectual property rights.
 
