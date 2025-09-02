@@ -32,6 +32,7 @@ $$= \frac{\frac{1}{2}  (\omega_a + \omega_b)(\omega_a - \omega_b) I}{\Delta t}$$
 $$= \frac{I \omega_{avg} \Delta\omega}{\Delta t} \quad \cdots (1)$$
 ***
 Since flywheel is has a fairly thick rim, with nost weight concentrated at the edges, we'll approximate the moment of inertia (I) to that of a solid disk:
+
 $$I = \frac{1}{2} m r^2$$
 
 $m = 6 \, \text{kg}$
@@ -66,7 +67,7 @@ $k = \frac{152.33}{\Delta t \cdot \omega_{avg}^2}$
 
 $k = \frac{152.33}{\Delta t \cdot (54.98)^2} = \frac{152.33}{\Delta t \cdot 3022.8}$
 
-$k \approx \frac{0.050394}{\Delta t}$
+$$k \approx \frac{0.050394}{\Delta t}$$
 
 > The units of **k** are $kg \cdot m^2/s$.
 
@@ -74,7 +75,7 @@ $k \approx \frac{0.050394}{\Delta t}$
 
 
 ## Pre-Calibration Setup
-Before beginning the calibration, we need to prepare the bike and the Raspberry Pi Pico to take accurate readings.
+Before beginning the calibration, we need to prepare the exercise bike and the Raspberry Pi Pico to take accurate readings.
 
 ### Prepare the Pico:
 
