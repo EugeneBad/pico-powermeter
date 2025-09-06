@@ -146,4 +146,51 @@ With the flywheel sensor in place, you are ready to begin the core calibration t
 
    - Repeat for all Levels: Increase the resistance to the next **level (2-15)** and repeat the entire coast-down test procedure. You may repeat the test at any given level several times to ensure you get consistent values.
 
+### Resistance Level Characterization
+To establish a quantitative relationship between the bike's digital resistance levels (1-15) and the analog control signal that positions the magnetic brake. This is achieved by measuring the voltage across the potentiometer that moves the brake magnet for each level.
 
+#### Identify Test Points
+A potentiometer has three pins:
+- Vcc: Voltage input.
+- GND: Ground.
+- Vout: Wiper output (Variable voltage between Vcc and GND). This is the middle terminal on the bike's potentiometer.
+
+#### Measure and Record Voltage for Each Level
+
+1. Set your multimeter to measure DC Volts (VDC). Select a range higher than the expected logic voltage (e.g., 20V).
+
+2. Carefully place the black probe on the potentiometer's GND pin.
+
+3. Place the red probe on the Vout (wiper) pin.
+
+4. Set the bike's resistance to Level 1. The actuator will move to its corresponding position.
+
+5. Once the actuator motor stops, record the stable voltage reading on your data sheet.
+
+6. Increase the resistance to Level 2. Wait for the actuator to stop moving and record the new voltage.
+
+7. Repeat this process for all resistance levels from 1 to 15.
+
+8. For consistency, cycle through the levels a second time to verify your readings are repeatable.
+
+## Final Data
+
+| Level | Positional Potentiometer V | Run 1 | Run 2 | Run 3 | Run 4 | Run 5 | Average Coast Down Time | Power Coast | k Constant |
+| :---: | :------------------------: | :---: | :---: | :---: | :---: | :---: | :---------------------: | :---------: | :------------: |
+| 1 | 0.13 | 13.4 | 13.41 | 13.31 | 13.4 | 13.48 | 13.4 | 11.36843284 | 0.003760894314 |
+| 2 | 0.33 | 8.27 | 8.36 | 8.31 | 8.28 | 8.47 | 8.338 | 18.27020868 | 0.006044133342 |
+| 3 | 0.44 | 6.57 | 6.8 | 6.46 | 6.29 | 6.39 | 6.502 | 23.42925254 | 0.007750843403 |
+| 4 | 0.5 | 5.6 | 5.57 | 5.6 | 5.59 | 5.63 | 5.598 | 27.21275456 | 0.009002498 |
+| 5 | 0.6 | 4.1 | 3.94 | 4.28 | 4.2 | 4.01 | 4.106 | 37.1010716 | 0.01227374179 |
+| 6 | 0.66 | 3.38 | 3.5 | 3.59 | 3.64 | 3.55 | 3.532 | 43.13052095 | 0.01426839859 |
+| 7 | 0.7 | 3.26 | 3.11 | 3.16 | 3.38 | 3.14 | 3.21 | 47.45700935 | 0.01569968343 |
+| 8 | 0.74 | 2.71 | 2.58 | 2.61 | 2.58 | 2.6 | 2.616 | 58.23279817 | 0.0192645198 |
+| 9 | 0.77 | 2.33 | 2.27 | 2.51 | 2.31 | 2.41 | 2.366 | 64.38588335 | 0.02130007769 |
+| 10 | 0.79 | 2.23 | 2.27 | 2.15 | 2.22 | 2.21 | 2.216 | 68.74413357 | 0.02274186995 |
+| 11 | 0.81 | 2.1 | 2.16 | 2.14 | 2.13 | 2.06 | 2.118 | 71.92492918 | 0.02379413777 |
+| 12 | 0.83 | 1.99 | 1.98 | 2 | 2.05 | 1.98 | 2 | 76.1685 | 0.0251979919 |
+| 13 | 0.85 | 1.95 | 1.98 | 1.94 | 2.04 | 1.98 | 1.978 | 77.0156724 | 0.02547825268 |
+| 14 | 0.87 | 1.93 | 1.95 | 1.95 | 1.94 | 1.93 | 1.94 | 78.5242268 | 0.02597731124 |
+| 15 | 0.88 | 1.92 | 1.93 | 1.9 | 1.91 | 1.93 | 1.918 | 79.42492179 | 0.02627527831 |
+
+![plot](./levelvsk.png)
