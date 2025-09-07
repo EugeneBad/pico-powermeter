@@ -5,12 +5,17 @@ from get_cadence import get_cadence
 from get_power import get_power
 from get_speed import get_speed
 from logger import log
+from blink import LEDManager
 
 DEVICE_NAME = "PicoPower"
 WHEEL_CIRCUMFERENCE_MM = 2096 # 700-23C
 
 async def main():
-    log("INFO", "Starting BLE Sensor script...")
+    log("INFO", "Starting BLE Sensor...")
+    is_blinking = True
+    led_manager = LEDManager()
+    led_manager.start_blinking()
+
     pico_sensor = BLEPeripheral(name=DEVICE_NAME)
 
     # --- Cumulative values sent over BLE ---
@@ -27,6 +32,10 @@ async def main():
 
     while True:
         if pico_sensor.is_connected():
+            if is_blinking:
+                led_manager.set_stay_on()
+                is_blinking = False
+
             # --- Power Simulation ---
             power = get_power()
             pico_sensor.send_power(power)
@@ -83,7 +92,12 @@ async def main():
             pico_sensor.send_speed(cumulative_wheel_revs, last_wheel_event_time_1024)
 
             log("DEBUG", f"Generated Cadence: {cadence} RPM, Speed: {speed_kph} KPH")
-
+        else: # Not connected
+            # --- Handle disconnection state change ---
+            if not is_blinking:
+                log("INFO", "Device disconnected, LED blinking.")
+                led_manager.start_blinking()
+                is_blinking = True
         # Main loop delay
         await uasyncio.sleep_ms(500)
 
