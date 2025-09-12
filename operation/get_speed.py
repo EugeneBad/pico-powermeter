@@ -51,4 +51,3 @@ def get_flat_speed(power_watts):
     # Convert final speed from meters/second to kilometers/hour
     return v * 3.6
     
-print(get_flat_speed(160))
