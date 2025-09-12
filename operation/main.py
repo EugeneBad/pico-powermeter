@@ -1,14 +1,13 @@
 import uasyncio
 import time
+import config
 from peripheral import BLEPeripheral
-from get_cadence import get_cadence
+from get_cadence import CadenceSensor
+from get_k_constant import KConstant
 from get_power import get_power
-from get_speed import get_speed
+from get_speed import get_flat_speed
 from logger import log
 from blink import LEDManager
-
-DEVICE_NAME = "PicoPower"
-WHEEL_CIRCUMFERENCE_MM = 2096 # 700-23C
 
 async def main():
     log("INFO", "Starting BLE Sensor...")
@@ -16,8 +15,10 @@ async def main():
     led_manager = LEDManager()
     led_manager.start_blinking()
 
-    pico_sensor = BLEPeripheral(name=DEVICE_NAME)
-
+    pico_sensor = BLEPeripheral(name=config.DEVICE_NAME)
+    cadence_sensor = CadenceSensor()
+    k_constant = KConstant()
+    
     # --- Cumulative values sent over BLE ---
     cumulative_crank_revs = 0
     cumulative_wheel_revs = 0
@@ -36,18 +37,13 @@ async def main():
                 led_manager.set_stay_on()
                 is_blinking = False
 
-            # --- Power Simulation ---
-            power = get_power()
-            pico_sensor.send_power(power)
-
-            # --- Time Calculation ---
             current_time_ms = time.ticks_ms()
             # Use ticks_diff for safe handling of timer overflow
             elapsed_time_ms = time.ticks_diff(current_time_ms, last_processing_time_ms)
             last_processing_time_ms = current_time_ms
 
-            # --- Crank Simulation ---
-            cadence = get_cadence()
+            # ---------------------- Cadence Calculation ---------------------------#
+            cadence = cadence_sensor.calculate_cadence(current_time_ms)
             if cadence > 0:
                 time_per_crank_rev_ms = (60 / cadence) * 1000
                 
@@ -67,12 +63,20 @@ async def main():
             # Send cadence data on every loop to keep the client updated
             last_crank_event_time_1024 = int((cumulative_crank_time / 1000) * 1024)
             pico_sensor.send_cadence(cumulative_crank_revs, last_crank_event_time_1024)
+            #-------------------------------------------------------------------------#
 
-            # --- Wheel Simulation ---
-            speed_kph = get_speed()
+            
+            # --------------------------- Power Calculation ---------------------------#
+            power = get_power(cadence, k_constant.get_k_constant())
+            pico_sensor.send_power(power)
+            #-------------------------------------------------------------------------#
+
+
+            # ----------------------------- Speed Calculation ------------------------#
+            speed_kph = get_flat_speed(power)
             if speed_kph > 0:
                 # Corrected formula for time per revolution in milliseconds
-                time_per_wheel_rev_ms = (WHEEL_CIRCUMFERENCE_MM * 3.6) / speed_kph
+                time_per_wheel_rev_ms = (config.WHEEL_CIRCUMFERENCE_MM * 3.6) / speed_kph
                 
                 # Add the elapsed time to our accumulator
                 time_since_last_wheel_rev_ms += elapsed_time_ms
@@ -90,8 +94,9 @@ async def main():
             # Send speed data on every loop
             last_wheel_event_time_1024 = int((cumulative_wheel_time / 1000) * 1024)
             pico_sensor.send_speed(cumulative_wheel_revs, last_wheel_event_time_1024)
+            #-------------------------------------------------------------------------#
 
-            log("DEBUG", f"Generated Cadence: {cadence} RPM, Speed: {speed_kph} KPH")
+            log("INFO", f"Generated Cadence: {cadence} RPM, Power: {power} Watts, Flat Speed: {speed_kph} KPH")
         else: # Not connected
             # --- Handle disconnection state change ---
             if not is_blinking:
@@ -99,7 +104,7 @@ async def main():
                 led_manager.start_blinking()
                 is_blinking = True
         # Main loop delay
-        await uasyncio.sleep_ms(500)
+        await uasyncio.sleep_ms(100)
 
 # --- Run the main loop ---
 if __name__ == "__main__":

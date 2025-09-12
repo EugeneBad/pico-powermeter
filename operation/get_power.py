@@ -1,8 +1,7 @@
-import random
+import math
+import config
 
-# --- Data Simulation Configuration ---
-MIN_POWER = 180
-MAX_POWER = 200
-
-def get_power():
-    return random.randint(MIN_POWER, MAX_POWER)
+def get_power(crank_cadence, k_constant):
+    flywheel_speed = config.G_RATIO * crank_cadence * (math.pi / 30) # in rad/s
+    power = k_constant * flywheel_speed ** 2
+    return int(power)
