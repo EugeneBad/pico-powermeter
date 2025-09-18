@@ -20,7 +20,6 @@ MAX_ADC_VALUE = 65535
 PICO_REFERENCE_VOLTAGE = 3.3
 
 POTENTIOMETER_PIN = 27
-REED_SWITCH_PIN = 16
 
 ### Configuration for Reed RPM sensor ###
 #########################################

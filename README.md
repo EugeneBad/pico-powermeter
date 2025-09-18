@@ -1,5 +1,12 @@
 # DIY Power Meter for the Decathlon EB140
 
+<img src="./picopowermeter.gif" alt="operation"
+  style="display:block;
+          float:none;
+          margin-left:auto;
+          margin-right:auto;
+  ">
+
 <details>
 <summary>⚠️ IMPORTANT: DISCLAIMER - READ BEFORE PROCEEDING </summary>
 By choosing to proceed, you acknowledge and agree to the following:

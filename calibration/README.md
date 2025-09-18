@@ -111,6 +111,13 @@ If this is your first time using the Pico, follow the official getting started g
    - Relocate the Sensor: Unscrew the reed switch from its pedal position and use tape to mount it to the bike's frame near the flywheel.
    - Relocate the Magnet: Remove the magnet from the pedal crank wheel and mount it on one of the flywheel's spokes. Place the magnet as close to the reed switch as practically possible without touching it.
    - Reduce Interference (Optional): To prevent stray magnetic fields from triggering the reed switch, you can wrap it with one or two layers of aluminum foil.
+
+    <img src="./media/shielding.jpg" alt="Demo GIF" width="605" height="454" style="display:block;
+            float:none;
+            margin-left:auto;
+            margin-right:auto;
+            ">
+
    - Final Check: Run the `reed-wheel-core.py` file on the Pico. As you rotate the pedals, the flywheel will spin, and the Pico's logs should display the flywheel's RPM.
         ```
         Exponential Smoothing RPM Monitor
@@ -140,7 +147,7 @@ With the flywheel sensor in place, you are ready to begin the core calibration t
    - The program will prompt you to begin the next run.
 
    - Complete the Test: Repeat this procedure for a total of five runs at resistance **level 1**.
-   <img src="demo.gif" alt="Demo GIF" width="726" height="718">
+   <img src="./media/demo.gif" alt="Demo GIF" width="726" height="718">
 
    - Record Data: At the end of the **five** runs, the program will display the time for each run. Record these values in a spreadsheet.
 
@@ -193,4 +200,4 @@ A potentiometer has three pins:
 | 14 | 0.87 | 1.93 | 1.95 | 1.95 | 1.94 | 1.93 | 1.94 | 78.5242268 | 0.02597731124 |
 | 15 | 0.88 | 1.92 | 1.93 | 1.9 | 1.91 | 1.93 | 1.918 | 79.42492179 | 0.02627527831 |
 
-![plot](./levelvsk.png)
+![plot](./media/levelvsk.png)
