@@ -77,8 +77,8 @@ The system is designed to "listen in" on the bike's signals without modifying it
 
 Two-Phase Process:
 
-1. Calibration Mode: A script guides the user through a coast-down test to populate the 2D brake power lookup table and calculate the flywheel's moment of inertia.
+1. [Calibration Mode](./calibration/README.md): A script guides the user through a coast-down test to populate the 2D brake power lookup table and calculate the flywheel's moment of inertia.
 
-2. Operation Mode: The main script runs in a loop, reading sensor values, calculating total power, and making this data available.
+2. [Operation Mode](./operation/README.md): The main script runs in a loop, reading sensor values, calculating total power, and making this data available.
 
 **Data Output:** The Pico will broadcast the data via bluetooth, using the standard BLE service specifications for Cycling Power, and Cycling Speed & Cadence.
